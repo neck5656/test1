@@ -1,0 +1,456 @@
+﻿@model StudentInformationManagementSystem.Models.LoginViewModel
+
+@{
+    Layout = "_LoginLayout";
+    ViewData["Title"] = "Authentication";
+}
+
+<div class="particle-container" id="particleContainer"></div>
+
+<div class="auth-container">
+    <div class="login-card">
+        <div class="text-center mb-4">
+            <div class="login-logo">
+                <img src="/img/logo.png" alt="Logo" class="mb-3" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48cGF0aCBmaWxsPSIjNGZlMGViIiBkPSJNNTAgMTBjLTIyLjEgMC00MCAxNy45LTQwIDQwczE3LjkgNDAgNDAgNDBjMjIuMSAwIDQwLTE3LjkgNDAtNDBzLTE3LjktNDAtNDAtNDB6bTAgNjBjLTExIDAtMjAtOS0yMC0yMHM5LTIwIDIwLTIwYzExIDAgMjAgOSAyMCAyMHMtOSAyMC0yMCAyMHoiLz48L3N2Zz4='; this.style.width='80px';">
+            </div>
+            <h2 class="text-ethereal">Student Portal</h2>
+            <p class="text-light">Access your educational journey</p>
+        </div>
+
+        <ul class="nav nav-pills nav-fill mb-4" id="authTabs">
+            <li class="nav-item">
+                <a class="nav-link active" data-bs-toggle="tab" href="#login">
+                    <i class="bi bi-box-arrow-in-right me-2"></i>Login
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-bs-toggle="tab" href="#register">
+                    <i class="bi bi-person-plus me-2"></i>Register
+                </a>
+            </li>
+        </ul>
+
+        <div class="tab-content">
+            <div class="tab-pane fade show active" id="login">
+                <form asp-action="Login" method="post">
+                    @Html.AntiForgeryToken()
+                    <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+                    <div class="form-group mb-4">
+                        <label asp-for="Username" class="form-label">Username</label>
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="bi bi-person"></i></span>
+                            <input asp-for="Username" class="form-control ethereal-input" placeholder="Enter username" />
+                        </div>
+                        <span asp-validation-for="Username" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group mb-4">
+                        <label asp-for="Password" class="form-label">Password</label>
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="bi bi-lock"></i></span>
+                            <input asp-for="Password" type="password" class="form-control ethereal-input" placeholder="Enter password" />
+                            <button class="btn btn-outline-secondary" type="button" id="toggleLoginPassword">
+                                <i class="bi bi-eye-slash"></i>
+                            </button>
+                        </div>
+                        <span asp-validation-for="Password" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group mb-4">
+                        <div class="d-flex justify-content-between">
+                            <div class="form-check">
+                                <input asp-for="RememberMe" class="form-check-input" />
+                                <label asp-for="RememberMe" class="form-check-label">Remember me</label>
+                            </div>
+                            <a href="#" class="text-cyan">Forgot password?</a>
+                        </div>
+                    </div>
+
+                    <div class="form-group mb-4">
+                        <button type="submit" class="btn btn-primary w-100">
+                            <i class="bi bi-box-arrow-in-right me-2"></i>Login
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <div class="tab-pane fade" id="register">
+                <form asp-controller="Account" asp-action="Register" method="post">
+                    @Html.AntiForgeryToken()
+                    <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+                    <!-- Hidden field for StudentNumber -->
+                    <input name="StudentNumber" type="hidden" value="TEMP" />
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">First Name</label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="bi bi-person"></i></span>
+                                <input name="FirstName" class="form-control ethereal-input" placeholder="First Name" required />
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Last Name</label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="bi bi-person"></i></span>
+                                <input name="LastName" class="form-control ethereal-input" placeholder="Last Name" required />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <label class="form-label">Username</label>
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="bi bi-at"></i></span>
+                            <input name="Username" class="form-control ethereal-input" placeholder="Choose a username" required />
+                        </div>
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <label class="form-label">Email</label>
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="bi bi-envelope"></i></span>
+                            <input type="email" name="Email" class="form-control ethereal-input" placeholder="Enter email" required />
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Date of Birth</label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="bi bi-calendar"></i></span>
+                                <input type="date" name="DateOfBirth" class="form-control ethereal-input" required />
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Phone Number</label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="bi bi-telephone"></i></span>
+                                <input type="tel" name="PhoneNumber" class="form-control ethereal-input"
+                                       placeholder="Optional" pattern="[0-9]*" inputmode="numeric"
+                                       oninput="this.value = this.value.replace(/[^0-9]/g, '')" />
+                            </div>
+                            <small class="text-muted">Numbers only, optional</small>
+                        </div>
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <label class="form-label">Address</label>
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="bi bi-house"></i></span>
+                            <input name="Address" class="form-control ethereal-input" placeholder="Optional" />
+                        </div>
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <label class="form-label">Password</label>
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="bi bi-lock"></i></span>
+                            <input type="password" name="Password" id="password" class="form-control ethereal-input" placeholder="Create password" required />
+                            <button class="btn btn-outline-secondary" type="button" id="togglePassword">
+                                <i class="bi bi-eye"></i>
+                            </button>
+                        </div>
+                        <div class="password-strength-container mt-2">
+                            <div class="progress" style="height: 5px;">
+                                <div id="password-strength-meter" class="progress-bar" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                            <small id="password-strength-text" class="form-text text-muted">Password strength</small>
+                        </div>
+                        <div id="password-requirements" class="mt-2 p-3 rounded">
+                            <div class="mb-1" id="req-length"><i class="bi bi-x-circle"></i> 8-20 characters</div>
+                            <div class="mb-1" id="req-capital"><i class="bi bi-x-circle"></i> One capital letter</div>
+                            <div class="mb-1" id="req-number"><i class="bi bi-x-circle"></i> One number</div>
+                            <div class="mb-1" id="req-spaces"><i class="bi bi-x-circle"></i> No spaces</div>
+                        </div>
+                    </div>
+
+                    <div class="form-group mb-4">
+                        <label class="form-label">Confirm Password</label>
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="bi bi-shield-lock"></i></span>
+                            <input type="password" name="ConfirmPassword" id="confirmPassword" class="form-control ethereal-input" placeholder="Confirm password" required />
+                            <button class="btn btn-outline-secondary" type="button" id="toggleConfirmPassword">
+                                <i class="bi bi-eye"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="form-group mb-4">
+                        <button type="submit" class="btn btn-success w-100" id="registerButton">
+                            <i class="bi bi-person-plus me-2"></i>Create Account
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script>
+        $(document).ready(function() {
+            // Password toggle visibility - Login
+            $("#toggleLoginPassword").click(function() {
+                var passwordField = $("#Password");
+                var icon = $(this).find("i");
+
+                if (passwordField.attr("type") === "password") {
+                    passwordField.attr("type", "text");
+                    icon.removeClass("bi-eye-slash").addClass("bi-eye");
+                } else {
+                    passwordField.attr("type", "password");
+                    icon.removeClass("bi-eye").addClass("bi-eye-slash");
+                }
+            });
+
+            // Password toggle visibility - Register
+            $("#togglePassword, #toggleConfirmPassword").click(function() {
+                var fieldId = $(this).attr("id") === "togglePassword" ? "#password" : "#confirmPassword";
+                var passwordField = $(fieldId);
+                var icon = $(this).find("i");
+
+                if (passwordField.attr("type") === "password") {
+                    passwordField.attr("type", "text");
+                    icon.removeClass("bi-eye").addClass("bi-eye-slash");
+                } else {
+                    passwordField.attr("type", "password");
+                    icon.removeClass("bi-eye-slash").addClass("bi-eye");
+                }
+            });
+
+            // Password requirements display
+            const passwordField = $('#password');
+            const confirmPasswordField = $('#confirmPassword');
+            const passwordStrengthMeter = $('#password-strength-meter');
+            const passwordStrengthText = $('#password-strength-text');
+            const passwordRequirements = $('#password-requirements');
+            const registerButton = $('#registerButton');
+
+            // Show password requirements when password field is focused
+            passwordField.focus(function() {
+                passwordRequirements.fadeIn();
+            });
+
+            // Hide requirements when clicking outside
+            $(document).mouseup(function(e) {
+                if (!passwordField.is(e.target) &&
+                    !passwordRequirements.is(e.target) &&
+                    passwordRequirements.has(e.target).length === 0) {
+                    passwordRequirements.fadeOut();
+                }
+            });
+
+            // Password strength checker with enhanced visuals
+            passwordField.on("keyup", function() {
+                var password = $(this).val();
+
+                // Reset requirements
+                $('#req-length, #req-capital, #req-number, #req-spaces').removeClass('text-success').addClass('text-danger')
+                    .find('i').removeClass('bi-check-circle-fill').addClass('bi-x-circle');
+
+                let score = 0;
+                const maxScore = 4;
+
+                // Length check
+                if (password.length >= 8 && password.length <= 20) {
+                    $("#req-length").removeClass("text-danger").addClass("text-success");
+                    $("#req-length i").removeClass("bi-x-circle").addClass("bi-check-circle-fill");
+                    score++;
+                }
+
+                // Capital letter check
+                if (/[A-Z]/.test(password)) {
+                    $("#req-capital").removeClass("text-danger").addClass("text-success");
+                    $("#req-capital i").removeClass("bi-x-circle").addClass("bi-check-circle-fill");
+                    score++;
+                }
+
+                // Number check
+                if (/\d/.test(password)) {
+                    $("#req-number").removeClass("text-danger").addClass("text-success");
+                    $("#req-number i").removeClass("bi-x-circle").addClass("bi-check-circle-fill");
+                    score++;
+                }
+
+                // No spaces check
+                if (!/\s/.test(password)) {
+                    $("#req-spaces").removeClass("text-danger").addClass("text-success");
+                    $("#req-spaces i").removeClass("bi-x-circle").addClass("bi-check-circle-fill");
+                    score++;
+                }
+
+                // Update strength meter
+                const percentage = (score / maxScore) * 100;
+                passwordStrengthMeter.css('width', `${percentage}%`);
+                passwordStrengthMeter.removeClass('bg-danger bg-warning bg-success');
+
+                // Update strength text and color
+                if (password.length === 0) {
+                    passwordStrengthMeter.css('width', '0%');
+                    passwordStrengthText.text('Password strength');
+                } else if (score <= 2) {
+                    passwordStrengthMeter.addClass('bg-danger');
+                    passwordStrengthText.text('Weak password');
+                } else if (score === 3) {
+                    passwordStrengthMeter.addClass('bg-warning');
+                    passwordStrengthText.text('Moderate password');
+                } else {
+                    passwordStrengthMeter.addClass('bg-success');
+                    passwordStrengthText.text('Strong password');
+                }
+
+                // Check if passwords match
+                validatePasswordMatch();
+            });
+
+            // Check if passwords match
+            confirmPasswordField.on('input', function() {
+                validatePasswordMatch();
+            });
+
+            function validatePasswordMatch() {
+                const password = passwordField.val();
+                const confirmPassword = confirmPasswordField.val();
+
+                if (confirmPassword.length > 0) {
+                    if (password === confirmPassword) {
+                        confirmPasswordField.removeClass('is-invalid').addClass('is-valid');
+                    } else {
+                        confirmPasswordField.removeClass('is-valid').addClass('is-invalid');
+                    }
+                } else {
+                    confirmPasswordField.removeClass('is-valid is-invalid');
+                }
+            }
+        });
+
+        // Create animated particles for background
+        document.addEventListener('DOMContentLoaded', function() {
+            const container = document.getElementById('particleContainer');
+
+            // Create stars
+            for (let i = 0; i < 100; i++) {
+                createStar(container);
+            }
+
+            // Create particles
+            for (let i = 0; i < 20; i++) {
+                setTimeout(() => {
+                    createParticle(container);
+                }, i * 1500);
+            }
+
+            // Set interval to continuously create particles
+            setInterval(() => createParticle(container), 1500);
+        });
+
+        function createParticle(container) {
+            const particle = document.createElement('div');
+            particle.classList.add('particle');
+
+            // Random position
+            const posX = Math.floor(Math.random() * window.innerWidth);
+            const posY = window.innerHeight;
+
+            // Random size
+            const size = Math.floor(Math.random() * 8) + 3;
+
+            particle.style.left = `${posX}px`;
+            particle.style.top = `${posY}px`;
+            particle.style.width = `${size}px`;
+            particle.style.height = `${size}px`;
+
+            // Random animation duration
+            const duration = Math.floor(Math.random() * 10) + 10;
+            particle.style.animationDuration = `${duration}s`;
+
+            container.appendChild(particle);
+
+            // Remove particle after animation completes
+            setTimeout(() => {
+                particle.remove();
+            }, duration * 1000);
+        }
+
+        function createStar(container) {
+            const star = document.createElement('div');
+            star.classList.add('star');
+
+            // Random position
+            const posX = Math.floor(Math.random() * window.innerWidth);
+            const posY = Math.floor(Math.random() * window.innerHeight);
+
+            // Random size
+            const size = Math.floor(Math.random() * 2) + 1;
+
+            star.style.left = `${posX}px`;
+            star.style.top = `${posY}px`;
+            star.style.width = `${size}px`;
+            star.style.height = `${size}px`;
+
+            // Random animation duration for twinkling
+            const duration = Math.floor(Math.random() * 5) + 3;
+            star.style.animationDuration = `${duration}s`;
+            star.style.animationDelay = `${Math.random() * 5}s`;
+
+            container.appendChild(star);
+        }
+    </script>
+}
+
+<style>
+    /* Additional page-specific styles */
+    .form-control.is-valid {
+        border-color: var(--bs-success);
+        background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'%3e%3cpath fill='%23198754' d='M2.3 6.73.6 4.53c-.4-1.04.46-1.4 1.1-.8l1.1 1.4 3.4-3.8c.6-.63 1.6-.27 1.2.7l-4 4.6c-.43.5-.8.4-1.1.1z'/%3e%3c/svg%3e");
+        background-repeat: no-repeat;
+        background-position: right calc(0.375em + 0.1875rem) center;
+        background-size: calc(0.75em + 0.375rem) calc(0.75em + 0.375rem);
+        padding-right: calc(1.5em + 0.75rem);
+    }
+
+    .form-control.is-invalid {
+        border-color: var(--bs-danger);
+        background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12' width='12' height='12' fill='none' stroke='%23dc3545'%3e%3ccircle cx='6' cy='6' r='4.5'/%3e%3cpath stroke-linejoin='round' d='M5.8 3.6h.4L6 6.5z'/%3e%3ccircle cx='6' cy='8.2' r='.6' fill='%23dc3545' stroke='none'/%3e%3c/svg%3e");
+        background-repeat: no-repeat;
+        background-position: right calc(0.375em + 0.1875rem) center;
+        background-size: calc(0.75em + 0.375rem) calc(0.75em + 0.375rem);
+        padding-right: calc(1.5em + 0.75rem);
+    }
+
+    #password-requirements {
+        background: rgba(10, 20, 40, 0.7);
+        backdrop-filter: blur(5px);
+        border: 1px solid var(--border-glow);
+        display: none;
+    }
+
+    .text-success {
+        color: #23c99d !important;
+    }
+
+    .text-danger {
+        color: #ff6b6b !important;
+    }
+
+    .progress {
+        background-color: rgba(10, 20, 40, 0.5);
+        overflow: hidden;
+    }
+
+    .progress-bar.bg-danger {
+        background: linear-gradient(135deg, #ff6b6b 0%, #e02f2f 100%) !important;
+    }
+
+    .progress-bar.bg-warning {
+        background: linear-gradient(135deg, #ffad42 0%, #ff8a00 100%) !important;
+    }
+
+    .progress-bar.bg-success {
+        background: linear-gradient(135deg, #23c99d 0%, #10875c 100%) !important;
+    }
+</style>

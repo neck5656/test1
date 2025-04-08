@@ -1,0 +1,65 @@
+/* Add these styles to your site.css file or include them in your layout */
+
+/* Password strength meter styles */
+.password-strength-container {
+    margin-top: 5px;
+}
+
+.progress {
+    height: 8px !important;
+    background-color: #e9ecef;
+    border-radius: 4px;
+    margin-bottom: 4px;
+}
+
+.progress-bar {
+    transition: width 0.3s ease;
+}
+
+/* Password toggle button */
+.input-group .btn-outline-secondary {
+    border-color: #ced4da;
+}
+
+    .input-group .btn-outline-secondary:hover {
+        background-color: #f8f9fa;
+        border-color: #ced4da;
+    }
+
+/* Password requirements box */
+#password-requirements {
+    font-size: 0.9rem;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    border-radius: 4px;
+    display: none;
+}
+
+/* Checkmark and X icons */
+.text-success {
+    color: #28a745 !important;
+}
+
+.text-danger {
+    color: #dc3545 !important;
+}
+
+.bi-check-circle, .bi-x-circle {
+    margin-right: 4px;
+}
+
+/* Tooltip arrow for requirements box */
+#password-requirements:before {
+    content: '';
+    position: absolute;
+    top: -10px;
+    left: 20px;
+    border-width: 0 10px 10px 10px;
+    border-style: solid;
+    border-color: transparent transparent #dee2e6 transparent;
+}
+
+/* Strength labels */
+#password-strength-text {
+    font-size: 0.8rem;
+    font-weight: 500;
+}

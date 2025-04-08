@@ -1,0 +1,85 @@
+﻿@model StudentInformationManagementSystem.Models.Course
+
+@{
+    ViewData["Title"] = "Delete Course";
+    Layout = "_AdminLayout";
+}
+
+<div class="container-fluid px-4">
+    <h1 class="mt-4">Delete Course</h1>
+    <ol class="breadcrumb mb-4">
+        <li class="breadcrumb-item"><a asp-controller="Admin" asp-action="Dashboard">Dashboard</a></li>
+        <li class="breadcrumb-item"><a asp-controller="Course" asp-action="Index">Courses</a></li>
+        <li class="breadcrumb-item active">Delete</li>
+    </ol>
+
+    <div class="card mb-4">
+        <div class="card-header bg-danger text-white">
+            <i class="bi bi-exclamation-triangle me-1"></i>
+            Confirm Deletion
+        </div>
+        <div class="card-body">
+            <div class="alert alert-warning">
+                <i class="bi bi-exclamation-triangle-fill me-2"></i>
+                <strong>Warning:</strong> Are you sure you want to deactivate this course? This action won't permanently delete the course but will mark it as inactive.
+            </div>
+
+            <div class="row mt-4">
+                <div class="col-md-6">
+                    <table class="table table-borderless">
+                        <tr>
+                            <th>@Html.DisplayNameFor(model => model.CourseCode)</th>
+                            <td>@Html.DisplayFor(model => model.CourseCode)</td>
+                        </tr>
+                        <tr>
+                            <th>@Html.DisplayNameFor(model => model.CourseName)</th>
+                            <td>@Html.DisplayFor(model => model.CourseName)</td>
+                        </tr>
+                        <tr>
+                            <th>@Html.DisplayNameFor(model => model.CreditHours)</th>
+                            <td>@Html.DisplayFor(model => model.CreditHours)</td>
+                        </tr>
+                        <tr>
+                            <th>@Html.DisplayNameFor(model => model.CreatedDate)</th>
+                            <td>@Html.DisplayFor(model => model.CreatedDate)</td>
+                        </tr>
+                        <tr>
+                            <th>@Html.DisplayNameFor(model => model.IsActive)</th>
+                            <td>
+                                @if (Model.IsActive)
+                                {
+                                    <span class="badge bg-success">Active</span>
+                                }
+                                else
+                                {
+                                    <span class="badge bg-danger">Inactive</span>
+                                }
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-header">
+                            <i class="bi bi-card-text me-1"></i>
+                            Description
+                        </div>
+                        <div class="card-body">
+                            <p>@(string.IsNullOrEmpty(Model.Description) ? "No description available." : Model.Description)</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <form asp-action="Delete" class="mt-4">
+                <input type="hidden" asp-for="CourseId" />
+                <button type="submit" class="btn btn-danger">
+                    <i class="bi bi-trash me-1"></i> Confirm Delete
+                </button>
+                <a asp-action="Index" class="btn btn-secondary">
+                    <i class="bi bi-arrow-left me-1"></i> Back to List
+                </a>
+            </form>
+        </div>
+    </div>
+</div>

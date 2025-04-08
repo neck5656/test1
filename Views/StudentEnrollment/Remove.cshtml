@@ -1,0 +1,79 @@
+﻿@model StudentInformationManagementSystem.Models.StudentCourse
+
+@{
+    ViewData["Title"] = "Remove Enrollment";
+    Layout = "_AdminLayout";
+}
+
+<div class="container-fluid px-4">
+    <h1 class="mt-4">Remove Enrollment</h1>
+    <ol class="breadcrumb mb-4">
+        <li class="breadcrumb-item"><a asp-controller="Admin" asp-action="Dashboard">Dashboard</a></li>
+        <li class="breadcrumb-item"><a asp-action="Index">Student Enrollments</a></li>
+        <li class="breadcrumb-item active">Remove Enrollment</li>
+    </ol>
+
+    <div class="row">
+        <div class="col-lg-6 mx-auto">
+            <div class="card mb-4">
+                <div class="card-header bg-danger text-white">
+                    <i class="bi bi-exclamation-triangle me-1"></i>
+                    Confirm Removal
+                </div>
+                <div class="card-body">
+                    <div class="alert alert-warning">
+                        <i class="bi bi-exclamation-triangle-fill me-2"></i>
+                        <strong>Warning:</strong> Are you sure you want to remove this enrollment? This action will deactivate the enrollment.
+                    </div>
+
+                    <div class="mt-4">
+                        <h5>Enrollment Details</h5>
+                        <table class="table table-borderless">
+                            <tr>
+                                <th class="w-25">Student:</th>
+                                <td>@Model.Student.FirstName @Model.Student.LastName</td>
+                            </tr>
+                            <tr>
+                                <th>Course:</th>
+                                <td>@Model.Course.CourseName (@Model.Course.CourseCode)</td>
+                            </tr>
+                            <tr>
+                                <th>Enrollment Date:</th>
+                                <td>@Model.EnrollmentDate.ToShortDateString()</td>
+                            </tr>
+                            <tr>
+                                <th>Grade:</th>
+                                <td>@(string.IsNullOrEmpty(Model.Grade) ? "Not Graded" : Model.Grade)</td>
+                            </tr>
+                            <tr>
+                                <th>Status:</th>
+                                <td>
+                                    @if (Model.IsActive)
+                                    {
+                                        <span class="badge bg-success">Active</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="badge bg-danger">Inactive</span>
+                                    }
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+
+                    <form asp-action="Remove" method="post">
+                        <input type="hidden" asp-for="StudentCourseId" />
+                        <div class="mt-4">
+                            <button type="submit" class="btn btn-danger">
+                                <i class="bi bi-trash me-1"></i> Confirm Removal
+                            </button>
+                            <a asp-action="Index" class="btn btn-secondary">
+                                <i class="bi bi-arrow-left me-1"></i> Back to List
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

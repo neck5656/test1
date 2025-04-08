@@ -1,0 +1,77 @@
+﻿@{
+    ViewData["Title"] = "Assign Course";
+    Layout = "_AdminLayout";
+}
+
+<div class="container-fluid px-4">
+    <h1 class="mt-4">Assign Course</h1>
+    <ol class="breadcrumb mb-4">
+        <li class="breadcrumb-item"><a asp-controller="Admin" asp-action="Dashboard">Dashboard</a></li>
+        <li class="breadcrumb-item"><a asp-action="Index">Student Enrollments</a></li>
+        <li class="breadcrumb-item active">Assign Course</li>
+    </ol>
+
+    <div class="row">
+        <div class="col-lg-6 mx-auto">
+            <div class="card mb-4">
+                <div class="card-header">
+                    <i class="bi bi-person-add me-1"></i>
+                    Assign Course to Student
+                </div>
+                <div class="card-body">
+                    <form asp-action="Assign" method="post">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                        <div class="form-group mb-3">
+                            <label class="control-label">Student</label>
+                            <select name="studentId" class="form-select" asp-items="ViewBag.Students">
+                                <option value="">-- Select Student --</option>
+                            </select>
+                            <span class="text-danger field-validation-valid" data-valmsg-for="studentId"></span>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label class="control-label">Course</label>
+                            <select name="courseId" class="form-select" asp-items="ViewBag.Courses">
+                                <option value="">-- Select Course --</option>
+                            </select>
+                            <span class="text-danger field-validation-valid" data-valmsg-for="courseId"></span>
+                        </div>
+
+                        <div class="form-group mt-4">
+                            <button type="submit" class="btn btn-primary">
+                                <i class="bi bi-save me-1"></i> Assign
+                            </button>
+                            <a asp-action="Index" class="btn btn-secondary">
+                                <i class="bi bi-arrow-left me-1"></i> Back to List
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
+    <script>
+        $(document).ready(function() {
+            // Add select2 to dropdowns for better user experience
+            if ($.fn.select2) {
+                $('select[name="studentId"]').select2({
+                    theme: 'bootstrap-5',
+                    placeholder: "-- Select Student --"
+                });
+
+                $('select[name="courseId"]').select2({
+                    theme: 'bootstrap-5',
+                    placeholder: "-- Select Course --"
+                });
+            }
+        });
+    </script>
+}

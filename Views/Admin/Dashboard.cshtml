@@ -1,0 +1,340 @@
+﻿@{
+    ViewData["Title"] = "Admin Dashboard";
+    Layout = "_AdminLayout";
+}
+
+<div class="container-fluid px-4">
+    <h1 class="mt-4">Dashboard</h1>
+    <ol class="breadcrumb mb-4">
+        <li class="breadcrumb-item active">Dashboard</li>
+    </ol>
+
+    <div class="row">
+        <div class="col-xl-3 col-md-6">
+            <div class="card bg-primary text-white mb-4">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h5 class="mb-0">Total Users</h5>
+                            <h2 class="mb-0">@ViewBag.TotalUsers</h2>
+                        </div>
+                        <div>
+                            <i class="bi bi-people fs-1"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer d-flex align-items-center justify-content-between">
+                    <a class="small text-white stretched-link" href="@Url.Action("ManageUsers", "Admin")">View Details</a>
+                    <div class="small text-white"><i class="bi bi-arrow-right"></i></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-3 col-md-6">
+            <div class="card bg-success text-white mb-4">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h5 class="mb-0">Courses</h5>
+                            <h2 class="mb-0">@ViewBag.TotalCourses</h2>
+                        </div>
+                        <div>
+                            <i class="bi bi-book fs-1"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer d-flex align-items-center justify-content-between">
+                    <a class="small text-white stretched-link" href="@Url.Action("Index", "Course")">View Details</a>
+                    <div class="small text-white"><i class="bi bi-arrow-right"></i></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-3 col-md-6">
+            <div class="card bg-warning text-white mb-4">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h5 class="mb-0">Faculty</h5>
+                            <h2 class="mb-0">@ViewBag.TotalFaculty</h2>
+                        </div>
+                        <div>
+                            <i class="bi bi-person-badge fs-1"></i>
+                        </div>
+                    </div>
+                </div>
+                <!-- Faculty card has no View Details link as requested -->
+                <div class="card-footer">
+                    <div class="text-white text-center">Faculty Members</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-3 col-md-6">
+            <div class="card bg-danger text-white mb-4">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h5 class="mb-0">Students</h5>
+                            <h2 class="mb-0">@ViewBag.TotalStudents</h2>
+                        </div>
+                        <div>
+                            <i class="bi bi-mortarboard fs-1"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer d-flex align-items-center justify-content-between">
+                    <a class="small text-white stretched-link" href="@Url.Action("Index", "StudentEnrollment")">View Details</a>
+                    <div class="small text-white"><i class="bi bi-arrow-right"></i></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-xl-6">
+            <div class="card mb-4">
+                <div class="card-header">
+                    <i class="bi bi-stars me-1"></i>
+                    System Overview
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <div class="d-flex align-items-center">
+                                <div class="avatar-circle bg-primary">
+                                    <i class="bi bi-person-add"></i>
+                                </div>
+                                <div class="ms-3">
+                                    <div class="fs-5">New Registrations</div>
+                                    <div class="text-muted small">3 new students this week</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <div class="d-flex align-items-center">
+                                <div class="avatar-circle bg-success">
+                                    <i class="bi bi-check-circle"></i>
+                                </div>
+                                <div class="ms-3">
+                                    <div class="fs-5">System Status</div>
+                                    <div class="text-muted small">All systems operational</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <div class="d-flex align-items-center">
+                                <div class="avatar-circle bg-info">
+                                    <i class="bi bi-graph-up"></i>
+                                </div>
+                                <div class="ms-3">
+                                    <div class="fs-5">Performance</div>
+                                    <div class="text-muted small">Response time: 0.2s</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <div class="d-flex align-items-center">
+                                <div class="avatar-circle bg-warning">
+                                    <i class="bi bi-clock-history"></i>
+                                </div>
+                                <div class="ms-3">
+                                    <div class="fs-5">Last Update</div>
+                                    <div class="text-muted small">Today at 9:30 AM</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-6">
+            <div class="card mb-4">
+                <div class="card-header">
+                    <i class="bi bi-clock-history me-1"></i>
+                    Recent Activity
+                </div>
+                <div class="card-body">
+                    <ul class="activity-list list-unstyled">
+                        <li class="activity-item">
+                            <div class="activity-icon bg-success">
+                                <i class="bi bi-person-plus"></i>
+                            </div>
+                            <div class="activity-content">
+                                <div class="d-flex align-items-center justify-content-between">
+                                    <div class="fw-bold">New user registered</div>
+                                    <div class="badge bg-secondary">Just now</div>
+                                </div>
+                                <div class="text-muted small">A new student has joined the system</div>
+                            </div>
+                        </li>
+                        <li class="activity-item">
+                            <div class="activity-icon bg-primary">
+                                <i class="bi bi-book-half"></i>
+                            </div>
+                            <div class="activity-content">
+                                <div class="d-flex align-items-center justify-content-between">
+                                    <div class="fw-bold">Course updated</div>
+                                    <div class="badge bg-secondary">2 hours ago</div>
+                                </div>
+                                <div class="text-muted small">Course materials for Programming 101 were updated</div>
+                            </div>
+                        </li>
+                        <li class="activity-item">
+                            <div class="activity-icon bg-warning">
+                                <i class="bi bi-gear"></i>
+                            </div>
+                            <div class="activity-content">
+                                <div class="d-flex align-items-center justify-content-between">
+                                    <div class="fw-bold">System update completed</div>
+                                    <div class="badge bg-secondary">1 day ago</div>
+                                </div>
+                                <div class="text-muted small">All system components have been successfully updated</div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-xl-12">
+            <div class="card mb-4 glow-effect">
+                <div class="card-header">
+                    <i class="bi bi-stars me-1"></i>
+                    Quick Actions
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-3 mb-3">
+                            <a href="@Url.Action("Create", "Course")" class="quick-action-card bg-primary">
+                                <div class="quick-action-icon">
+                                    <i class="bi bi-plus-circle"></i>
+                                </div>
+                                <div class="quick-action-text">
+                                    <div>Add New Course</div>
+                                    <div class="small">Create a new course</div>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="col-md-3 mb-3">
+                            <a href="@Url.Action("Assign", "StudentEnrollment")" class="quick-action-card bg-success">
+                                <div class="quick-action-icon">
+                                    <i class="bi bi-person-plus"></i>
+                                </div>
+                                <div class="quick-action-text">
+                                    <div>Enroll Student</div>
+                                    <div class="small">Assign course to student</div>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="col-md-3 mb-3">
+                            <a href="#" class="quick-action-card bg-warning">
+                                <div class="quick-action-icon">
+                                    <i class="bi bi-file-earmark-text"></i>
+                                </div>
+                                <div class="quick-action-text">
+                                    <div>Generate Report</div>
+                                    <div class="small">Create system report</div>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="col-md-3 mb-3">
+                            <a href="#" class="quick-action-card bg-info">
+                                <div class="quick-action-icon">
+                                    <i class="bi bi-envelope"></i>
+                                </div>
+                                <div class="quick-action-text">
+                                    <div>Send Notification</div>
+                                    <div class="small">Notify users</div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    /* Additional Dashboard-specific styles */
+    .activity-list {
+        max-height: 300px;
+        overflow-y: auto;
+    }
+
+    .activity-item {
+        display: flex;
+        align-items: flex-start;
+        padding: 12px 0;
+        border-bottom: 1px solid rgba(79, 224, 235, 0.1);
+    }
+
+    .activity-item:last-child {
+        border-bottom: none;
+    }
+
+    .activity-icon {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 15px;
+        color: white;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    .activity-content {
+        flex: 1;
+    }
+
+    .quick-action-card {
+        display: flex;
+        align-items: center;
+        padding: 15px;
+        border-radius: 8px;
+        transition: all 0.3s ease;
+        color: white;
+        text-decoration: none;
+        height: 100%;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        position: relative;
+        overflow: hidden;
+    }
+
+    .quick-action-card::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+        transition: 0.5s;
+    }
+
+    .quick-action-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+    }
+
+    .quick-action-card:hover::after {
+        left: 100%;
+    }
+
+    .quick-action-icon {
+        font-size: 2rem;
+        margin-right: 15px;
+        filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.3));
+    }
+
+    .quick-action-text {
+        font-weight: 400;
+        letter-spacing: 0.5px;
+    }
+</style>
